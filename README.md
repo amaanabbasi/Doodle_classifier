@@ -20,3 +20,4 @@ That's it! It's serving a saved Keras model to you via Flask.
 
 The credits for this code go to [moinudeen](https://github.com/moinudeen).
 
+![2018-03-16](https://user-images.githubusercontent.com/30196830/37506233-e533c46a-290e-11e8-9dc8-0d59908ace98.png)
