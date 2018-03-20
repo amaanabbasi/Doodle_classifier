@@ -1,10 +1,11 @@
+# version v1
 #our web app framework!
 
 #you could also generate a skeleton from scratch via
 #http://flask-appbuilder.readthedocs.io/en/latest/installation.html
 
 #Generating HTML from within Python is not fun, and actually pretty cumbersome because you have to do the
-#HTML escaping on your own to keep the application secure. Because of that Flask configures the Jinja2 template engine 
+#HTML escaping on your own to keep the application secure. Because of that Flask configures the Jinja2 template engine
 #for you automatically.
 #requests are objects that flask handles (get set post, etc)
 from flask import Flask, render_template,request
@@ -18,14 +19,14 @@ import keras.models
 import re
 
 #system level operations (like loading files)
-import sys 
+import sys
 #for reading operating system data
 import os
 #tell our app where our saved model is
 sys.path.append(os.path.abspath("./model"))
 # ignore a warning
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-from load import * 
+from load import *
 #initalize our flask app
 app = Flask(__name__)
 #global vars for easy reusability
@@ -41,7 +42,7 @@ def convertImage(imgData1):
 	#print(imgstr)
 	with open('output.png','wb') as output:
 		output.write(base64.b64decode(imgstr))
-	
+
 
 @app.route('/')
 def index():
@@ -82,8 +83,8 @@ def predict():
 		labels = ['rainbow', 'cat','airplane']
 		#convert the response to a string
 		response = labels[num_label[0]]
-		return response	
-	
+		return response
+
 
 if __name__ == "__main__":
 	#decide what port to run the app in
