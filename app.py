@@ -10,7 +10,9 @@
 #requests are objects that flask handles (get set post, etc)
 from flask import Flask, render_template,request
 #scientific computing library for saving, reading, and resizing images
-from scipy.misc import imsave, imread, imresize
+from imageio.v2 import imsave, imread
+from PIL import Image
+
 #for matrix math
 import numpy as np
 #for importing our keras model
@@ -65,25 +67,27 @@ def predict():
 	#compute a bit-wise inversion so black becomes white and vice versa
 	x = np.invert(x)
 	#make it the right size
-	x = imresize(x,(28,28))
+	x = np.resize(x, (28, 28))
+    #x = imresize(x,(28,28))
+    #Image.fromarray(x).resize((28,28))
 	#imshow(x)
 	#convert to a 4D tensor to feed into our model
 	x = x.reshape(1,28,28,1)
 	print ("debug2")
 
 	#in our computation graph
-	with graph.as_default():
+	#with graph.as_default():
 		#perform the prediction
-		out = model.predict(x)
-		print(out)
-		print(np.argmax(out,axis=1))
-		num_label = np.argmax(out,axis=1)
-		print ("debug3")
-		# labels
-		labels = ['rainbow', 'cat','airplane']
-		#convert the response to a string
-		response = labels[num_label[0]]
-		return response
+	out = model.predict(x)
+	print(out)
+	print(np.argmax(out,axis=1))
+	num_label = np.argmax(out,axis=1)
+	print ("debug3")
+	# labels
+	labels = ['rainbow', 'cat','airplane']
+	#convert the response to a string
+	response = labels[num_label[0]]
+	return response
 
 
 if __name__ == "__main__":
